@@ -1,18 +1,7 @@
-/*
- 1. Описать несколько структур – любой легковой автомобиль SportCar и любой грузовик TrunkCar.
 
- 2. Структуры должны содержать .
-
- 3. Описать перечисление с возможными действиями с автомобилем: запустить/заглушить двигатель, открыть/закрыть окна, погрузить/выгрузить из кузова/багажника груз определенного объема.
-
- 4. Добавить в структуры метод с одним аргументом типа перечисления, который будет менять свойства структуры в зависимости от действия.
-
- 5. Инициализировать несколько экземпляров структур. Применить к ним различные действия.
-
- 6. Вывести значения свойств экземпляров в консоль.
- */
 import Foundation
 
+// Возможные действия с автомобилем
 enum WindowsStatus {
     case open, closed
 }
@@ -20,36 +9,60 @@ enum WindowsStatus {
 enum EngineStatus {
     case started, muted
 }
-
+// Структуры
 struct SportCar {
-    var carBrand: String
+    let carBrand: String
     let year: Int
     let trunkVolume: Int
     var engine: EngineStatus
     var windows: WindowsStatus
-    var filledTrunkVolume: Bool
+    var filledTrunkVolume: Int
+
+    func printConsol(){
+        print("Марка авто - \(carBrand), Год выпуска - \(year), Объем багажника - \(trunkVolume) литров, Статус двигателя - \(engine), Статус окан - \(windows), заполненный объем багажника - \(filledTrunkVolume) литров")
+    }
+    mutating func brush(engine: EngineStatus, windows: WindowsStatus, filledTrunkVolume: Int){
+        self.engine = engine
+        self.windows = windows
+        self.filledTrunkVolume = filledTrunkVolume
+    }
 }
 
 struct TrunkCar {
-    var carBrand: String
+    let carBrand: String
     let year: Int
     let bodyVolume: Int
     var engine: EngineStatus
     var windows: WindowsStatus
-    var filledBodyVolume: Bool
+    var filledBodyVolume: Int
+    
+    func printConsol(){
+        print("Марка авто - \(carBrand), Год выпуска - \(year), Объем кузова - \(bodyVolume) m³, Статус двигателя - \(engine), Статус окан - \(windows), заполненный объем багажника - \(filledBodyVolume) m³")
+    }
+    mutating func brush(engine: EngineStatus, windows: WindowsStatus, filledBodyVolume: Int){
+        self.engine = engine
+        self.windows = windows
+        self.filledBodyVolume = filledBodyVolume
+    }
 }
 
-var lotus = SportCar(carBrand: "Lotus", year: 2020, trunkVolume: 200, engine: .started, windows: .closed, filledTrunkVolume: false)
+//  Инициализируем экземпляры
+var lotus = SportCar(carBrand: "Lotus", year: 2020, trunkVolume: 200, engine: .muted, windows: .closed, filledTrunkVolume: 0)
+lotus.brush(engine: .started, windows: .open, filledTrunkVolume: 100)
 
-var ferrari = SportCar(carBrand: "Ferrari", year: 2020, trunkVolume: 174, engine: .muted, windows: .open, filledTrunkVolume: true)
+var ferrari = SportCar(carBrand: "Ferrari", year: 2017, trunkVolume: 174, engine: .muted, windows: .closed, filledTrunkVolume: 0)
+ferrari.brush(engine: .started, windows: .open, filledTrunkVolume: 101)
 
-var volvo = TrunkCar(carBrand: "Volvo", year: 2019, bodyVolume: 74, engine: .started, windows: .open, filledBodyVolume: true)
+var volvo = TrunkCar(carBrand: "Volvo", year: 2019, bodyVolume: 74, engine: .muted, windows: .open, filledBodyVolume: 0)
+volvo.brush(engine: .started, windows: .open, filledBodyVolume: 55)
 
-var Kamaz = TrunkCar(carBrand: "Kamaz", year: 2016, bodyVolume: 65, engine: .muted, windows: .closed, filledBodyVolume: false)
+var kamaz = TrunkCar(carBrand: "Kamaz", year: 2016, bodyVolume: 65, engine: .muted, windows: .closed, filledBodyVolume: 0)
+kamaz.brush(engine: .started, windows: .open, filledBodyVolume: 44)
 
+// Распечатаем в консоль
+let printLotus: () = lotus.printConsol()
+let printFerrari: () = ferrari.printConsol()
+let printVolvo: () = volvo.printConsol()
+let printKamaz: () = kamaz.printConsol()
 
-print(lotus)
-print(ferrari)
-print(volvo)
-print(Kamaz)
 
