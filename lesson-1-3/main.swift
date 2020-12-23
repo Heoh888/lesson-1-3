@@ -60,9 +60,9 @@ var kamaz = TrunkCar(carBrand: "Kamaz", year: 2016, bodyVolume: 65, engine: .mut
 kamaz.brush(engine: .started, windows: .open, filledBodyVolume: 44)
 
 // Распечатаем в консоль
-let printLotus: () = lotus.printConsol()
-let printFerrari: () = ferrari.printConsol()
-let printVolvo: () = volvo.printConsol()
-let printKamaz: () = kamaz.printConsol()
+lotus.printConsol()
+ferrari.printConsol()
+volvo.printConsol()
+kamaz.printConsol()
 
 
